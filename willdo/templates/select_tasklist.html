@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="common-actions">
+    <a class="create-tasklist" href="{{ url_for('mainpage_bp.create_tasklist') }}">New tasklist</a>
+</div>
+
+<div class="listof-tasklists">
+    <ul>
+        {% if not tasklists %}
+        <i class="message">There are currently no tasklists</i>
+        {% else %}
+        {% for tasklist in tasklists %}
+        <li class="tasklist-entry">
+            <a class="tasklist-link" href="{{ url_for('tasklist_bp.list_tasks', tasklist_id=tasklist.id) }}">{{ tasklist.name }}</a>
+        </li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+</div>
+{% endblock content %}

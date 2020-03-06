@@ -1,0 +1,34 @@
+{% extends 'within_tasklist/base.html' %}
+
+{% macro getValue(object, name) %}
+{%- if object is defined -%}
+{{ object|attr(name) }}
+{%- else -%}
+{%- endif -%}
+{% endmacro %}
+
+{% block content %}
+{% if task %}
+<h3 class="activity">Edit task</h3>
+{% else %}
+<h3 class="activity">Create task</h3>
+{% endif %}
+
+<form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    
+    <label for="description">Description: </label>
+    <input type="text" id="description" name="description" value="{{ getValue(task, 'description') }}">
+
+    <label for="priority">Priority: </label>
+    <input type="text" id="priority" name="priority" maxlength="8" pattern="[A-Za-z]{1,8}" value="{{ getValue(task, 'priority') }}">
+    
+    <label for="completion-date">Completion Date: </label>
+    <input type="date" id="completion-date" name="completion-date" value="{{ getValue(task, 'completion_date') }}">
+
+    <label for="creation-date">Creation Date: </label>
+    <input type="date" id="creation-date" name="creation-date" value="{{ getValue(task, 'creation_date') }}">
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock content %}

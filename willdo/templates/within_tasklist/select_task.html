@@ -1,0 +1,55 @@
+{% extends 'within_tasklist/base.html' %}
+
+{% block title_display %}
+<h2 class="currently-in">Currently in: {{ tasklist_name }}</h2>
+{% endblock title_display %}
+
+{% block content %}
+<form action="{{ url_for('tasklist_bp.perform_edit_action', tasklist_id=tasklist_id) }}" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <div class="common-actions">
+        <input type="submit" name="create-task" value="New task">
+        {% if tasks %}
+        <input type="submit" name="mark-tasks-complete" value="Mark tasks complete">
+        <input type="submit" name="mark-tasks-incomplete" value="Mark tasks incomplete">
+        <input type="submit" name="delete-tasks" value="Delete tasks">
+        {% endif %}
+    </div>
+
+    <div class="listof-tasks">
+        {% if not tasks %}
+        <i class="message">There are currently no tasks on the list</i>
+        {% else %}
+            <ul>
+                {% for task in tasks %}
+                <li class="task-entry">
+                    <input type="checkbox" name="task-selected" value="{{ task.id }}">
+                    <a class="task-edit" href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">
+                        <div class="task-info">
+                            <div class="task-completion-status">
+                                {% if task.is_complete %}
+                                yes
+                                {% endif %}
+                            </div>
+                            <div class="task-priority">
+                                {{ task.priority }}
+                            </div>
+                            <div class="task-completion-date">
+                                {{ task.completion_date }}
+                            </div>
+                            <div class="task-creation-date">
+                                {{ task.creation_date }}
+                            </div>
+                            <div class="task-description">
+                                {{ task.description }}
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</form>
+{% endblock content %}

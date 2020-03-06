@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - WillDo</title>
+        {% else %}
+        <title>WillDo</title>
+        {% endif %}
+    </head>
+    <body>
+        {% block body %}
+        
+        <div class="header">
+            {% block header %}
+            <h1><a href="{{ url_for('mainpage_bp.select_tasklist') }}">WillDo</a></h1>
+            {#
+            <nav class="navbar">
+                <ul>
+                    <li class="navitem">List</li>
+                    <li class="navitem">About</li>
+                </ul>
+            </nav>
+            #}
+            {% endblock header %}
+        </div>
+
+        {% block outer_content %}
+
+        <div class="current">
+            {% block title_display %}
+            <h2 class="currently-in">{{ title }}</h2>
+            {% endblock title_display %}
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+        {% endblock outer_content %}
+
+        {% endblock body %}
+    </body>
+</html>
