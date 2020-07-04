@@ -17,12 +17,11 @@ def create_app(config_object=None, config_mapping=None):
         app.config.from_object(config_object)
     if config_mapping:
         app.config.from_mapping(config_mapping)
-    
+
     if app.secret_key is None:
         app.secret_key = create_secret_key()
-    
+
     extensions_init_app(app)
     db_init_app(app)
     routes_init_app(app)
     return app
-

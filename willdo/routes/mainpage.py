@@ -35,15 +35,15 @@ def create_tasklist():
     if request.method == 'POST':
         submitted_form = request.form
         name = submitted_form['name']
-        
+
         tasklist = AvailableTasklist(name=name)
-        
+
         db_session = g.db_session
         db_session.add(tasklist)
         db_session.commit()
 
         return redirect(url_for('mainpage_bp.select_tasklist'))
-    
+
     return render_template('create_tasklist.html')
 
 
@@ -54,8 +54,8 @@ def delete_tasklist():
         _id = submitted_form['id']
 
         db_session = g.db_session
-        tasklist = db_session.query(AvailableTasklist).filter(AvailableTasklist.id == _id).one()
-        tasklist.delete_orphan_tags(db_session)
+        tasklist = db_session.query(AvailableTasklist).filter(
+            AvailableTasklist.id == _id).one()
         db_session.delete(tasklist)
         db_session.commit()
 
