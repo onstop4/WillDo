@@ -2,20 +2,20 @@
 
 {% block content %}
 <div class="common-actions">
-    <a class="create-tasklist" href="{{ url_for('mainpage_bp.create_tasklist') }}">New tasklist</a>
+    <a class="button" href="{{ url_for('mainpage_bp.create_tasklist') }}">New tasklist</a>
 </div>
 
-<div class="listof-tasklists">
+<div class="main-list">
+    {% if not tasklists %}
+    <em class="main-list__message">There are currently no tasklists.</em>
+    {% else %}
     <ul>
-        {% if not tasklists %}
-        <i class="message">There are currently no tasklists</i>
-        {% else %}
         {% for tasklist in tasklists %}
-        <li class="tasklist-entry">
-            <a class="tasklist-link" href="{{ url_for('tasklist_bp.list_tasks', tasklist_id=tasklist.id) }}">{{ tasklist.name }}</a>
+        <li class="main-list__entry">
+            <a class="main-list__entry-info" href="{{ url_for('tasklist_bp.list_tasks', tasklist_id=tasklist.id) }}">{{ tasklist.name }}</a>
         </li>
         {% endfor %}
-        {% endif %}
     </ul>
+    {% endif %}
 </div>
 {% endblock content %}

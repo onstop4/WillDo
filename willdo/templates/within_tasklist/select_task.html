@@ -1,32 +1,28 @@
 {% extends 'within_tasklist/base.html' %}
 
-{% block title_display %}
-<h2 class="currently-in">Currently in: {{ tasklist_name }}</h2>
-{% endblock title_display %}
-
 {% block content %}
 <form action="{{ url_for('tasklist_bp.perform_edit_action', tasklist_id=tasklist_id) }}" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
     <div class="common-actions">
-        <input type="submit" name="create-task" value="New task">
+        <input class="button" type="submit" name="create-task" value="New task">
         {% if tasks %}
-        <input type="submit" name="mark-tasks-complete" value="Mark tasks complete">
-        <input type="submit" name="mark-tasks-incomplete" value="Mark tasks incomplete">
-        <input type="submit" name="delete-tasks" value="Delete tasks">
+        <input class="button" type="submit" name="mark-tasks-complete" value="Mark tasks complete">
+        <input class="button" type="submit" name="mark-tasks-incomplete" value="Mark tasks incomplete">
+        <input class="button" type="submit" name="delete-tasks" value="Delete tasks">
         {% endif %}
     </div>
 
-    <div class="listof-tasks">
+    <div class="main-list">
         {% if not tasks %}
-        <i class="message">There are currently no tasks on the list</i>
+        <em class="main-list__message">There are currently no tasks on the list.</em>
         {% else %}
             <ul>
                 {% for task in tasks %}
-                <li class="task-entry">
-                    <input type="checkbox" name="task-selected" value="{{ task.id }}">
-                    <a class="task-edit" href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">
-                        <div class="task-info">
+                <li class="main-list__entry">
+                    <input class="main-list__entry--checkbox" type="checkbox" name="task-selected" value="{{ task.id }}">
+                    <a href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">
+                        <div class="main-list__entry-info">
                             <div class="task-completion-status">
                                 {% if task.is_complete %}
                                 yes

@@ -1,4 +1,12 @@
 {% extends 'within_tasklist/base.html' %}
+{% block title_display %}
+{{ super() }}
+{% if task %}
+<h3 class="whereami__action whereami__action--in-tasklist">Edit task</h3>
+{% else %}
+<h3 class="whereami__action whereami__action--in-tasklist">Create task</h3>
+{% endif %}
+{% endblock title_display %}
 
 {% macro getValue(object, name) %}
 {%- if object is defined -%}
@@ -8,12 +16,6 @@
 {% endmacro %}
 
 {% block content %}
-{% if task %}
-<h3 class="activity">Edit task</h3>
-{% else %}
-<h3 class="activity">Create task</h3>
-{% endif %}
-
 <form method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     

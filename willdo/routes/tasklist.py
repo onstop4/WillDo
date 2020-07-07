@@ -69,7 +69,8 @@ def create_task(tasklist_id):
 
         return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
     
-    return render_template('within_tasklist/create_edit_task.html')
+    tasklist_name = get_tasklist_by_id(tasklist_id).name
+    return render_template('within_tasklist/create_edit_task.html', tasklist_name=tasklist_name)
 
 
 @bp.route('/<tasklist_id>/edit/edittask/<task_id>/', methods=['GET', 'POST'])
@@ -87,7 +88,8 @@ def edit_task_details(tasklist_id, task_id):
         return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
     
     rtask = RenderedTask(task.id, task.is_complete, task.priority, task.completion_date, task.creation_date, task.description)
-    return render_template('within_tasklist/create_edit_task.html', task=rtask)
+    tasklist_name = get_tasklist_by_id(tasklist_id).name
+    return render_template('within_tasklist/create_edit_task.html', task=rtask, tasklist_name=tasklist_name)
 
 
 @bp.route('/<tasklist_id>/edit', methods=['GET', 'POST'])

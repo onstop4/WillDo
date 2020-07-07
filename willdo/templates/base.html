@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         {% if title %}
@@ -10,31 +10,26 @@
     <body>
         {% block body %}
         
-        <div class="header">
+        <header class="header">
             {% block header %}
-            <h1><a href="{{ url_for('mainpage_bp.select_tasklist') }}">WillDo</a></h1>
-            {#
-            <nav class="navbar">
-                <ul>
-                    <li class="navitem">List</li>
-                    <li class="navitem">About</li>
-                </ul>
-            </nav>
-            #}
+            <h1><a class="header__homepage-link" href="{{ url_for('mainpage_bp.select_tasklist') }}">Willdo</a></h1>
             {% endblock header %}
-        </div>
+        </header>
 
         {% block outer_content %}
+        <div class="outer-content">
 
-        <div class="current">
-            {% block title_display %}
-            <h2 class="currently-in">{{ title }}</h2>
-            {% endblock title_display %}
-        </div>
+            <div class="whereami">
+                {% block title_display %}
+                <h2 class="whereami__action">{{ title }}</h2>
+                {% endblock title_display %}
+            </div>
 
-        <div class="content">
-            {% block content %}
-            {% endblock content %}
+            <div class="content">
+                {% block content %}
+                {% endblock content %}
+            </div>
+
         </div>
         {% endblock outer_content %}
 

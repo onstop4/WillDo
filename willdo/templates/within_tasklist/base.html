@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
+{% set title = tasklist_name %}
 
 {% block title_display %}
-<h2 class="currently-in">Currently in: {{ title }}</h2>
+<h2 class="whereami__action">Currently in: {{ tasklist_name }}</h2>
 {% endblock title_display %}
