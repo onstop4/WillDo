@@ -6,6 +6,12 @@
         {% else %}
         <title>WillDo</title>
         {% endif %}
+
+        {% block resources %}
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital@0;1&family=Poppins&display=swap" rel="stylesheet">
+
+        <link href="{{ url_for('static', filename='styles/main.css') }}" rel="stylesheet">
+        {% endblock resources %}
     </head>
     <body>
         {% block body %}
