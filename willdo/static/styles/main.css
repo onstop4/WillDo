@@ -50,21 +50,22 @@ a, a:visited {
 
 /* || Content */
 
+.main__message {
+    font-style: italic;
+}
+
 .main-list {
     font-family: 'Open Sans', sans-serif;
     margin: 20px 0;
 }
 
-.main-list__message {
-    font-style: italic;
-}
-
-.main-list ul {
+ul.main-list {
     margin: 0;
     padding: 0;
 }
 
-.main-list__entry {
+/* formerly targeting .main-list__entry */
+.main-list > * {
     display: block;
     margin: 10px 0;
     border: 2px solid rgb(158, 158, 158);
@@ -72,11 +73,12 @@ a, a:visited {
     padding: 4px;
 }
 
-.main-list__entry:hover {
+.main-list > *:hover {
     border-width: 4px;
 }
 
 .main-list__entry-info {
+    padding: 4px;
     font-size: 16px;
 }
 

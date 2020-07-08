@@ -5,11 +5,11 @@
     <a class="button" href="{{ url_for('mainpage_bp.create_tasklist') }}">New tasklist</a>
 </div>
 
-<div class="main-list">
+<div>
     {% if not tasklists %}
-    <em class="main-list__message">There are currently no tasklists.</em>
+    <em class="main__message">There are currently no tasklists.</em>
     {% else %}
-    <ul>
+    <ul class="main-list">
         {% for tasklist in tasklists %}
         <li class="main-list__entry">
             <a class="main-list__entry-info" href="{{ url_for('tasklist_bp.list_tasks', tasklist_id=tasklist.id) }}">{{ tasklist.name }}</a>
