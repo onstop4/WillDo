@@ -1,0 +1,49 @@
+.main-list__task-entry {
+    display: grid;
+    grid-template-columns: 1fr 1fr 4fr 1fr;
+    grid-template-areas:
+        "checkbox priority due-date creation-date"
+        "completion-status description description description";
+    gap: 10px;
+}
+
+.main-list__task-entry-info {
+    padding: 4px;
+    font-size: 16px;
+}
+
+.main-list__task-entry-info--checkbox {
+    grid-area: checkbox;
+    margin: auto;
+}
+
+.main-list__task-entry-info--completion-status {
+    grid-area: completion-status;
+    padding-top: 4px;
+    text-align: center;
+}
+
+.main-list__task-entry-info--priority {
+    grid-area: priority;
+    font-weight: 600;
+}
+
+.main-list__task-entry-info--completion-date, .main-list__task-entry-info--creation-date {
+    --padding-left-right: 4px;
+    
+    grid-area: due-date;
+    font-family: 'Bitter', serif;
+    font-style: italic;
+    padding-left: var(--padding-left-right);
+    padding-right: var(--padding-left-right);
+}
+
+.main-list__task-entry-info--creation-date {
+    grid-area: creation-date;
+    text-align: right;
+}
+
+.main-list__task-entry-info--description {
+    grid-area: description;
+    font-family: 'Noto Serif', serif;
+}

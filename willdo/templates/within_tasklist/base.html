@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% set title = tasklist_name %}
 
+{% block resources %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/within-tasklist.css') }}" rel="stylesheet">
+{% endblock resources %}
+
 {% block title_display %}
 <h2 class="whereami__action">Currently in: {{ tasklist_name }}</h2>
 {% endblock title_display %}

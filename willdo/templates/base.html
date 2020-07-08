@@ -8,7 +8,8 @@
         {% endif %}
 
         {% block resources %}
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital@0;1&family=Poppins&display=swap" rel="stylesheet">
+        {# Taken from https://fonts.google.com/?selection.family=Bebas+Neue|Noto+Serif:ital,wght@0,400;0,700;1,400;1,700|Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700|Poppins:ital@0;1&category=Serif#standard-styles #}
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Poppins:ital@0;1&display=swap" rel="stylesheet">
 
         <link href="{{ url_for('static', filename='styles/main.css') }}" rel="stylesheet">
         {% endblock resources %}

@@ -13,35 +13,31 @@
         {% endif %}
     </div>
 
-    <div class="main-list">
+    <div>
         {% if not tasks %}
-        <em class="main-list__message">There are currently no tasks on the list.</em>
+        <em class="main__message">There are currently no tasks on the list.</em>
         {% else %}
-            <ul>
+            <ul class="main-list">
                 {% for task in tasks %}
-                <li class="main-list__entry">
-                    <input class="main-list__entry--checkbox" type="checkbox" name="task-selected" value="{{ task.id }}">
-                    <a href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">
-                        <div class="main-list__entry-info">
-                            <div class="task-completion-status">
+                <li class="main-list__task-entry">
+                    <input class="main-list__task-entry-info main-list__task-entry-info--checkbox" type="checkbox" name="task-selected" value="{{ task.id }}">
+                            <div class="main-list__task-entry-info main-list__task-entry-info--completion-status">
                                 {% if task.is_complete %}
                                 yes
                                 {% endif %}
                             </div>
-                            <div class="task-priority">
+                            <div class="main-list__task-entry-info main-list__task-entry-info--priority">
                                 {{ task.priority }}
                             </div>
-                            <div class="task-completion-date">
+                            <div class="main-list__task-entry-info main-list__task-entry-info--completion-date">
                                 {{ task.completion_date }}
                             </div>
-                            <div class="task-creation-date">
+                            <div class="main-list__task-entry-info main-list__task-entry-info--creation-date">
                                 {{ task.creation_date }}
                             </div>
-                            <div class="task-description">
-                                {{ task.description }}
+                            <div class="main-list__task-entry-info main-list__task-entry-info--description">
+                                <a href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">{{ task.description }}</a>
                             </div>
-                        </div>
-                    </a>
                 </li>
                 {% endfor %}
             </ul>
