@@ -8,6 +8,11 @@
 {% endif %}
 {% endblock title_display %}
 
+{% block resources %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/actual-form.css') }}" rel="stylesheet">
+{% endblock resources %}
+
 {% macro getValue(object, name) %}
 {%- if object is defined -%}
 {{ object|attr(name) }}

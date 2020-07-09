@@ -1,0 +1,28 @@
+.form-input {
+    --gap-between-rows: 4px;
+
+    margin: 4px;
+    display: grid;
+    grid-template-columns: minmax(0, 140px) minmax(180px, 1fr) 2fr;
+    grid-auto-rows: minmax(30px, auto);
+    grid-gap: var(--gap-between-rows);
+    gap: var(--gap-between-rows);
+}
+
+.form-input__label {
+    grid-column: 1 / 2;
+    margin: 4px;
+    text-align: right;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form-input__text-input {
+    grid-column: 2 / 3;
+    font-family: 'Noto Serif', serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.form-input__text-input--long {
+    grid-column: 2 / 4;
+}
