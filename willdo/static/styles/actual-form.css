@@ -16,6 +16,10 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+.form-input__label--no-margin {
+    margin: 0;
+}
+
 .form-input__text-input {
     grid-column: 2 / 3;
     font-family: 'Noto Serif', serif;
