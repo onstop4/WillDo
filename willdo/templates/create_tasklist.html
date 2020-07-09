@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% set title = 'Creating tasklist' %}
 
+{% block resources %}
+{{ super() }}
+<link href="{{ url_for('static', filename='styles/actual-form.css') }}" rel="stylesheet">
+{% endblock resources %}
+
 {% block content %}
-<form method="post">
+<form class="form-input" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     
-    <label class="form-label" for="name">Name</label>
-    <input class="text-input" type="text" id="name" name="name">
+    <label class="form-input__label" for="name">Name</label>
+    <input class="form-input__text-input form-input__text-input--long" type="text" id="name" name="name">
     
-    <input class="button" type="submit" value="Submit">
+    <div class="form-input__label form-input__label--no-margin">
+        <input class="button" type="submit" value="Submit">
+    </div>
 </form>
 {% endblock content %}
