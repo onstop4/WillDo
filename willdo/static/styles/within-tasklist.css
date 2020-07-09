@@ -1,10 +1,10 @@
 .main-list__task-entry {
     display: grid;
-    grid-template-columns: 1fr 1fr 4fr 1fr;
+    grid-template-columns: 1fr 1fr 8fr 1fr;
     grid-template-areas:
         "checkbox priority due-date creation-date"
         "completion-status description description description";
-    gap: 10px;
+    gap: 2px 6px;
 }
 
 .main-list__task-entry-info {
