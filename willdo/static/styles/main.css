@@ -77,6 +77,10 @@ ul.main-list {
     border-width: 4px;
 }
 
+.main-list__entry {
+    padding: 8px;
+}
+
 .main-list__entry-info {
     padding: 4px;
     font-size: 16px;
