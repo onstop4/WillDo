@@ -1,10 +1,10 @@
 .main-list__task-entry {
     display: grid;
-    grid-template-columns: 1fr 1fr 4fr 1fr;
+    grid-template-columns: 1fr 1fr 8fr 1fr;
     grid-template-areas:
         "checkbox priority due-date creation-date"
         "completion-status description description description";
-    gap: 10px;
+    gap: 2px 6px;
 }
 
 .main-list__task-entry-info {
@@ -46,4 +46,9 @@
 .main-list__task-entry-info--description {
     grid-area: description;
     font-family: 'Noto Serif', serif;
+}
+
+.main-list__task-entry-info--done {
+    color: rgb(116, 116, 116);
+    text-decoration: line-through;
 }

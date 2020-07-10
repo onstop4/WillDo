@@ -1,5 +1,11 @@
 {% extends 'within_tasklist/base.html' %}
 
+{%- macro mark_completion(is_complete, output='main-list__task-entry-info--done') -%}
+{%- if is_complete -%}
+{{ output }}
+{%- endif -%}
+{%- endmacro -%}
+
 {% block content %}
 <form action="{{ url_for('tasklist_bp.perform_edit_action', tasklist_id=tasklist_id) }}" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -7,9 +13,9 @@
     <div class="common-actions">
         <input class="button" type="submit" name="create-task" value="New task">
         {% if tasks %}
-        <input class="button" type="submit" name="mark-tasks-complete" value="Mark tasks complete">
-        <input class="button" type="submit" name="mark-tasks-incomplete" value="Mark tasks incomplete">
-        <input class="button" type="submit" name="delete-tasks" value="Delete tasks">
+        <input class="button button--green" type="submit" name="mark-tasks-complete" value="Mark tasks complete">
+        <input class="button button--yellow" type="submit" name="mark-tasks-incomplete" value="Mark tasks incomplete">
+        <input class="button button--red" type="submit" name="delete-tasks" value="Delete tasks">
         {% endif %}
     </div>
 
@@ -21,21 +27,16 @@
                 {% for task in tasks %}
                 <li class="main-list__task-entry">
                     <input class="main-list__task-entry-info main-list__task-entry-info--checkbox" type="checkbox" name="task-selected" value="{{ task.id }}">
-                            <div class="main-list__task-entry-info main-list__task-entry-info--completion-status">
-                                {% if task.is_complete %}
-                                yes
-                                {% endif %}
-                            </div>
-                            <div class="main-list__task-entry-info main-list__task-entry-info--priority">
+                            <div class="main-list__task-entry-info main-list__task-entry-info--priority {{ mark_completion(task.is_complete) }}">
                                 {{ task.priority }}
                             </div>
-                            <div class="main-list__task-entry-info main-list__task-entry-info--completion-date">
+                            <div class="main-list__task-entry-info main-list__task-entry-info--completion-date {{ mark_completion(task.is_complete) }}">
                                 {{ task.completion_date }}
                             </div>
                             <div class="main-list__task-entry-info main-list__task-entry-info--creation-date">
                                 {{ task.creation_date }}
                             </div>
-                            <div class="main-list__task-entry-info main-list__task-entry-info--description">
+                            <div class="main-list__task-entry-info main-list__task-entry-info--description {{ mark_completion(task.is_complete) }}">
                                 <a href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">{{ task.description }}</a>
                             </div>
                 </li>

@@ -117,3 +117,42 @@ input.button, input.button:visited {
     box-sizing: content-box;
     line-height: unset;
 }
+
+.button--red {
+    border: 4px solid rgb(253, 123, 123);
+    background-color: rgb(221, 69, 69);
+}
+
+.button--red:hover {
+    background-color: rgb(255, 180, 180);
+}
+
+.button--red:active {
+    background-color: rgb(165, 50, 50);
+}
+
+.button--yellow {
+    border: 4px solid rgb(255, 187, 61);
+    background-color: rgb(219, 162, 56);
+}
+
+.button--yellow:hover {
+    background-color: rgb(255, 210, 125);
+}
+
+.button--yellow:active {
+    background-color: rgb(97, 71, 23);
+}
+
+.button--green {
+    border: 4px solid rgb(91, 206, 91);
+    background-color: rgb(51, 177, 51);
+}
+
+.button--green:hover {
+    background-color: rgb(136, 206, 136);
+}
+
+.button--green:active {
+    background-color: rgb(32, 110, 32);
+}
