@@ -47,3 +47,8 @@
     grid-area: description;
     font-family: 'Noto Serif', serif;
 }
+
+.main-list__task-entry-info--done {
+    color: rgb(116, 116, 116);
+    text-decoration: line-through;
+}
