@@ -34,7 +34,7 @@ def teardown_db(exception=None):
 
 def make_db_engine(app):
     will_echo = False
-    if app.config.get('DEBUG') or app.config.get('TESTING') or (app.env == 'development'):
+    if app.config.get('SQLALCHEMY_ECHO') or app.config.get('DEBUG') or (app.env == 'development'):
         will_echo = True
 
     engine = create_engine(
