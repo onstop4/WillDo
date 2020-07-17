@@ -50,8 +50,23 @@ a, a:visited {
 
 /* || Content */
 
-.main__message {
+.message {
+    margin: 4px;
+    border: 2px solid rgb(51, 82, 255);
+    border-radius: 5px;
+    background-color: rgb(153, 188, 253);
+    padding: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.90em;
     font-style: italic;
+}
+
+.message--bad {
+    grid-column: 2 / 4;
+    border-color: rgb(165, 50, 50);
+    background-color: rgb(255, 180, 180);
+    font-weight: bold;
+    font-style: normal;
 }
 
 .main-list {
