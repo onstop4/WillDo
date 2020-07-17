@@ -1,5 +1,5 @@
 from wtforms import Form, StringField
-from wtforms.validators import InputRequired, Regexp
+from wtforms.validators import InputRequired, Optional, Regexp
 
 
 BASIC_INPUT_REGEX = r'^.*\w.*$'
@@ -12,8 +12,11 @@ class TasklistForm(Form):
 
 
 class TaskForm(Form):
-    priority = StringField(validators=[Regexp(PRIORITY_INPUT_REGEX)])
-    completion_date = StringField(validators=[Regexp(DATE_INPUT_REGEX)])
-    creation_date = StringField(validators=[Regexp(DATE_INPUT_REGEX)])
+    priority = StringField(
+        validators=[Optional(), Regexp(PRIORITY_INPUT_REGEX)])
+    completion_date = StringField(
+        validators=[Optional(), Regexp(DATE_INPUT_REGEX)])
+    creation_date = StringField(
+        validators=[Optional(), Regexp(DATE_INPUT_REGEX)])
     description = StringField(
         validators=[InputRequired(), Regexp(BASIC_INPUT_REGEX)])
