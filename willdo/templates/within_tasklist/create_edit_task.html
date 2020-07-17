@@ -21,6 +21,10 @@
 {% endmacro %}
 
 {% block content %}
+{% if invalid %}
+<div class="message message--bad">One or more fields were invalid.</div>
+{% endif %}
+
 <form class="form-input" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
