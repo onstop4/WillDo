@@ -4,6 +4,7 @@ from collections import namedtuple
 from ..db import IndividualTask
 from .queries import query_tasks, get_tasklist_by_id, get_task_by_id, get_multiple_tasks_by_id
 from .operations import bulk_change_completion_status, bulk_delete
+from .forms import validate_task
 
 
 bp = Blueprint('tasklist_bp', __name__)
@@ -56,40 +57,46 @@ def list_tasks(tasklist_id):
 
 @bp.route('/<tasklist_id>/edit/newtask/', methods=['GET', 'POST'])
 def create_task(tasklist_id):
+    invalid = False
     if request.method == 'POST':
         submitted_form = request.form
-        
-        task = IndividualTask(description="")
-        modify_task_from_form(submitted_form, task)
-        task.tasklist_id = tasklist_id
-        
-        db_session = g.db_session
-        db_session.add(task)
-        db_session.commit()
 
-        return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
+        if validate_task(submitted_form):
+            task = IndividualTask(description="")
+            modify_task_from_form(submitted_form, task)
+            task.tasklist_id = tasklist_id
+            
+            db_session = g.db_session
+            db_session.add(task)
+            db_session.commit()
+
+            return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
+        else:
+            invalid = True
     
     tasklist_name = get_tasklist_by_id(tasklist_id).name
-    return render_template('within_tasklist/create_edit_task.html', tasklist_name=tasklist_name)
+    return render_template('within_tasklist/create_edit_task.html', tasklist_name=tasklist_name, invalid=invalid)
 
 
 @bp.route('/<tasklist_id>/edit/edittask/<task_id>/', methods=['GET', 'POST'])
 def edit_task_details(tasklist_id, task_id):
     db_session = g.db_session
     task = get_task_by_id(task_id)
+    invalid = False
 
     if request.method == 'POST':
         submitted_form = request.form
-        
-        modify_task_from_form(submitted_form, task)
-        
-        db_session.commit()
 
-        return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
-    
+        if validate_task(submitted_form):
+            modify_task_from_form(submitted_form, task)
+            db_session.commit()
+            return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
+        else:
+            invalid = True
+
     rtask = RenderedTask(task.id, task.is_complete, task.priority, task.completion_date, task.creation_date, task.description)
     tasklist_name = get_tasklist_by_id(tasklist_id).name
-    return render_template('within_tasklist/create_edit_task.html', task=rtask, tasklist_name=tasklist_name)
+    return render_template('within_tasklist/create_edit_task.html', task=rtask, tasklist_name=tasklist_name, invalid=invalid)
 
 
 @bp.route('/<tasklist_id>/edit', methods=['GET', 'POST'])
