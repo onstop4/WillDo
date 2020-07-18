@@ -32,10 +32,10 @@
     <input class="form-input__text-input" type="text" id="priority" name="priority" maxlength="8" pattern="^[A-Z]$" value="{{ getValue(task, 'priority') }}">
 
     <label class="form-input__label" for="completion-date">Completion date</label>
-    <input class="form-input__text-input" type="date" id="completion-date" name="completion-date" value="{{ getValue(task, 'completion_date') }}">
+    <input class="form-input__text-input" type="date" id="completion-date" name="completion-date" pattern="^\d{4}-\d{2}-\d{2}$" value="{{ getValue(task, 'completion_date') }}">
 
     <label class="form-input__label" for="creation-date">Creation date</label>
-    <input class="form-input__text-input" type="date" id="creation-date" name="creation-date" value="{{ getValue(task, 'creation_date') }}">
+    <input class="form-input__text-input" type="date" id="creation-date" name="creation-date" pattern="^\d{4}-\d{2}-\d{2}$" value="{{ getValue(task, 'creation_date') }}">
 
     <label class="form-input__label" for="description">Description</label>
     <input class="form-input__text-input form-input__text-input--long" type="text" id="description" name="description" pattern="^.*\w.*$" value="{{ getValue(task, 'description') }}">
