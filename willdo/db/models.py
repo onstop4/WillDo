@@ -13,7 +13,7 @@ class AvailableTasklist(Base):
     name = Column(String)
 
     tasks = relationship(
-        'IndividualTask', back_populates='tasklist', cascade='all')
+        'IndividualTask', back_populates='tasklist')
 
     def __repr__(self):
         return "<AvailableTasklist(name='{name}')>".format(name=self.name)
@@ -24,8 +24,7 @@ class IndividualTask(Base):
 
     id = Column(Integer, primary_key=True)
     tasklist_id = Column(Integer, ForeignKey('tasklists.id'))
-    tasklist = relationship('AvailableTasklist',
-                            back_populates='tasks', cascade='all')
+    tasklist = relationship('AvailableTasklist', back_populates='tasks')
 
     is_complete = Column(Boolean, default=False, nullable=False)
     priority = Column(String, nullable=True)
