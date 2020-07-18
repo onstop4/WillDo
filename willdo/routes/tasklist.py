@@ -124,11 +124,6 @@ def perform_edit_action(tasklist_id):
     return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
 
 
-@bp.route('/<tasklist_id>/edit/deletetask/<task_id>')
-def delete_task(tasklist_id, task_id):
-    return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
-
-
 @bp.route('/<tasklist_id>/edit/togglecompletion/<task_id>/')
 def toggle_task_completion(tasklist_id, task_id):
     task = get_task_by_id(task_id)

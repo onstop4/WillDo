@@ -49,20 +49,3 @@ def create_tasklist():
         return redirect(url_for('mainpage_bp.select_tasklist'))
 
     return render_template('create_tasklist.html')
-
-
-@bp.route('/edit/deletelist/', methods=['GET', 'POST'])
-def delete_tasklist():
-    if request.method == 'POST':
-        submitted_form = request.form
-        _id = submitted_form['id']
-
-        db_session = g.db_session
-        tasklist = db_session.query(AvailableTasklist).filter(
-            AvailableTasklist.id == _id).one()
-        db_session.delete(tasklist)
-        db_session.commit()
-
-        return redirect(url_for('mainpage_bp.select_tasklist'))
-
-    return render_template('delete_tasklist.html')
