@@ -38,7 +38,7 @@ def create_tasklist():
         if not validate_tasklist(submitted_form):
             return render_template('create_tasklist.html', invalid=True)
         
-        name = submitted_form['name']
+        name = submitted_form['name'].strip()
 
         tasklist = AvailableTasklist(name=name)
 
