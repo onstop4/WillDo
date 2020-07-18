@@ -13,7 +13,7 @@ class AvailableTasklist(Base):
     name = Column(String)
 
     tasks = relationship(
-        'IndividualTask', back_populates='tasklist')
+        'IndividualTask', back_populates='tasklist', cascade='all, delete, delete-orphan')
 
     def __repr__(self):
         return "<AvailableTasklist(name='{name}')>".format(name=self.name)
