@@ -29,7 +29,7 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
     <label class="form-input__label" for="priority">Priority</label>
-    <input class="form-input__text-input" type="text" id="priority" name="priority" maxlength="8" pattern="[A-Za-z]{1,8}" value="{{ getValue(task, 'priority') }}">
+    <input class="form-input__text-input" type="text" id="priority" name="priority" maxlength="8" pattern="^[A-Z]$" value="{{ getValue(task, 'priority') }}">
 
     <label class="form-input__label" for="completion-date">Completion date</label>
     <input class="form-input__text-input" type="date" id="completion-date" name="completion-date" value="{{ getValue(task, 'completion_date') }}">
@@ -38,7 +38,7 @@
     <input class="form-input__text-input" type="date" id="creation-date" name="creation-date" value="{{ getValue(task, 'creation_date') }}">
 
     <label class="form-input__label" for="description">Description</label>
-    <input class="form-input__text-input form-input__text-input--long" type="text" id="description" name="description" value="{{ getValue(task, 'description') }}">
+    <input class="form-input__text-input form-input__text-input--long" type="text" id="description" name="description" pattern="^.*\w.*$" value="{{ getValue(task, 'description') }}">
     
     <div class="form-input__label form-input__label--no-margin">
         <input class="button" type="submit" value="Submit">
