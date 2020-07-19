@@ -33,6 +33,20 @@ def modify_task_from_form(submitted_form, task: IndividualTask):
     return task
 
 
+def delete_tasklist(tasklist_id):
+    """Deletes tasklist with the associated tasklist_id. The results
+    of this change are then committed to the database.
+
+    :param tasklist_id: The id of the associated tasklist.
+    """
+
+    db_session = g.db_session
+
+    tasklist = get_tasklist_by_id(tasklist_id)
+    db_session.delete(tasklist)
+    db_session.commit()
+
+
 def iter_tasks_for_html(query):
     for instance in query:
         _id = instance.id
@@ -118,7 +132,10 @@ def perform_edit_action(tasklist_id):
             bulk_change_completion_status(tasks, False)
         elif submitted_form.get('delete-tasks'):
             bulk_delete(tasks)
-        
+        elif submitted_form.get('delete-tasklist'):
+            delete_tasklist(tasklist_id)
+            return redirect(url_for('mainpage_bp.select_tasklist'))
+
         db_session.commit()
 
     return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
