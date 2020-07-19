@@ -3,7 +3,7 @@ from datetime import datetime
 from collections import namedtuple
 from ..db import IndividualTask
 from .queries import query_tasks, get_tasklist_by_id, get_task_by_id, get_multiple_tasks_by_id
-from .operations import bulk_change_completion_status, bulk_delete
+from .operations import bulk_change_completion_status, bulk_delete, remove_excess_whitespace
 from .forms import validate_task
 
 
@@ -24,20 +24,11 @@ def format_date_as_str(string):
         return datetime.strftime(string, date_format)
 
 
-def possible_strip(maybe_text):
-    """Strips whitespace from start and end of maybe_text, if possible."""
-    try:
-        maybe_text = maybe_text.strip()
-    except AttributeError:
-        pass
-    return maybe_text
-
-
 def modify_task_from_form(submitted_form, task: IndividualTask):
-    task.description = possible_strip(submitted_form.get('description'))
-    task.priority = possible_strip(submitted_form.get('priority'))
-    task.completion_date = possible_strip(get_date_from_str(submitted_form.get('completion-date')))
-    task.creation_date = possible_strip(get_date_from_str(submitted_form.get('creation-date')))
+    task.description = remove_excess_whitespace(submitted_form.get('description'))
+    task.priority = remove_excess_whitespace(submitted_form.get('priority'))
+    task.completion_date = remove_excess_whitespace(get_date_from_str(submitted_form.get('completion-date')))
+    task.creation_date = remove_excess_whitespace(get_date_from_str(submitted_form.get('creation-date')))
 
     return task
 

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, g, url_for, request, redirect
 from collections import namedtuple
 from ..db import AvailableTasklist
 from .queries import query_tasklists
+from .operations import remove_excess_whitespace
 from .forms import validate_tasklist
 
 
@@ -37,8 +38,8 @@ def create_tasklist():
         submitted_form = request.form
         if not validate_tasklist(submitted_form):
             return render_template('create_tasklist.html', invalid=True)
-        
-        name = submitted_form['name'].strip()
+
+        name = remove_excess_whitespace(submitted_form['name'])
 
         tasklist = AvailableTasklist(name=name)
 
