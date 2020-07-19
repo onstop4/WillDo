@@ -101,6 +101,11 @@ ul.main-list {
     font-size: 16px;
 }
 
+.common-actions {
+    display: flex;
+    flex-flow: row wrap;
+}
+
 .button, .button:visited {
     --button-height: 30px;
 
