@@ -69,6 +69,18 @@ def list_tasks(tasklist_id):
     return render_template('within_tasklist/select_task.html', tasklist_id=tasklist_id, tasklist_name=tasklist_name, tasks=tasks)
 
 
+@bp.route('/<tasklist_id>/search/<term>/')
+def search_tasks(tasklist_id, term):
+    tasklist = get_tasklist_by_id(tasklist_id)
+    tasklist_name = tasklist.name
+    
+    term = remove_excess_whitespace(term)
+    query = query_tasks(tasklist, search_for=term)
+    tasks = iter_tasks_for_html(query)
+
+    return render_template('within_tasklist/select_task.html', tasklist_id=tasklist_id, tasklist_name=tasklist_name, tasks=tasks)
+
+
 @bp.route('/<tasklist_id>/edit/newtask/', methods=['GET', 'POST'])
 def create_task(tasklist_id):
     invalid = False
