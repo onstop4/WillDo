@@ -25,9 +25,20 @@ def select_tasklist():
     return render_template('select_tasklist.html', tasklists=tasklists)
 
 
-@bp.route('/search/<string:search_term>')
-def search_for_tasklist(search_term):
-    query = query_tasklists(search_for=search_term)
+@bp.route('/search', methods=['GET', 'POST'])
+def process_search():
+    if request.method == 'POST': # pylint: disable=no-else-return
+        submitted_form = request.form
+        term = submitted_form.get('search-input', '')
+        return redirect(url_for('mainpage_bp.search_for_tasklist', term=term))
+
+    else:
+        return redirect(url_for('mainpage_bp.select_tasklist'))
+
+
+@bp.route('/search/<term>/')
+def search_for_tasklist(term):
+    query = query_tasklists(search_for=term)
     tasklists = iter_tasklists_for_html(query)
     return render_template('select_tasklist.html', tasklists=tasklists)
 
