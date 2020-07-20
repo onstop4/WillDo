@@ -138,7 +138,10 @@ def perform_edit_action(tasklist_id):
         task_ids = submitted_form.getlist('task-selected')
         tasks = get_multiple_tasks_by_id(task_ids)
 
-        if submitted_form.get('mark-tasks-complete'):
+        if submitted_form.get('search'):  # pylint: disable=no-else-return
+            search_term = submitted_form.get('search-input', '')
+            return redirect(url_for('tasklist_bp.search_tasks', tasklist_id=tasklist_id, term=search_term))
+        elif submitted_form.get('mark-tasks-complete'):
             bulk_change_completion_status(tasks, True)
         elif submitted_form.get('mark-tasks-incomplete'):
             bulk_change_completion_status(tasks, False)
