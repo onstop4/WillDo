@@ -5,6 +5,13 @@
     <a class="button" href="{{ url_for('mainpage_bp.create_tasklist') }}">New tasklist</a>
 </div>
 
+{% if tasklists %}
+<form class="search-bar" action="{{ url_for('mainpage_bp.process_search') }}" method="POST">
+    <input class="search-bar__text-input" type="text" id="search-input" name="search-input">
+    <input class="button search-bar__button" type="submit" name="search" value="Search">
+</div>
+{% endif %}
+
 <div>
     {% if not tasklists %}
     <em class="main__message">There are currently no tasklists.</em>
