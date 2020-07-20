@@ -18,7 +18,7 @@ def query_tasks(tasklist, search_for=None):
     query = query.order_by(IndividualTask.completion_date)
 
     if search_for:
-        query = query.filter(IndividualTask.name.ilike('%{}%'.format(search_for)))
+        query = query.filter(IndividualTask.description.ilike('%{}%'.format(search_for)))
 
     return query
 
