@@ -20,29 +20,36 @@
         <input class="button button--red" type="submit" name="delete-tasklist" value="Delete tasklist">
     </div>
 
+    {% if tasks %}
+    <div class="search-bar">
+        <input class="search-bar__text-input" type="text" id="search-input" name="search-input">
+        <input class="button search-bar__button" type="submit" name="search" value="Search">
+    </div>
+    {% endif %}
+
     <div>
         {% if not tasks %}
         <em class="main__message">There are currently no tasks on the list.</em>
         {% else %}
-            <ul class="main-list">
-                {% for task in tasks %}
-                <li class="main-list__task-entry">
-                    <input class="main-list__task-entry-info main-list__task-entry-info--checkbox" type="checkbox" name="task-selected" value="{{ task.id }}">
-                            <div class="main-list__task-entry-info main-list__task-entry-info--priority {{ mark_completion(task.is_complete) }}">
-                                {{ task.priority }}
-                            </div>
-                            <div class="main-list__task-entry-info main-list__task-entry-info--completion-date {{ mark_completion(task.is_complete) }}">
-                                {{ task.completion_date }}
-                            </div>
-                            <div class="main-list__task-entry-info main-list__task-entry-info--creation-date">
-                                {{ task.creation_date }}
-                            </div>
-                            <div class="main-list__task-entry-info main-list__task-entry-info--description {{ mark_completion(task.is_complete) }}">
-                                <a href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">{{ task.description }}</a>
-                            </div>
-                </li>
-                {% endfor %}
-            </ul>
+        <ul class="main-list">
+            {% for task in tasks %}
+            <li class="main-list__task-entry">
+                <input class="main-list__task-entry-info main-list__task-entry-info--checkbox" type="checkbox" name="task-selected" value="{{ task.id }}">
+                        <div class="main-list__task-entry-info main-list__task-entry-info--priority {{ mark_completion(task.is_complete) }}">
+                            {{ task.priority }}
+                        </div>
+                        <div class="main-list__task-entry-info main-list__task-entry-info--completion-date {{ mark_completion(task.is_complete) }}">
+                            {{ task.completion_date }}
+                        </div>
+                        <div class="main-list__task-entry-info main-list__task-entry-info--creation-date">
+                            {{ task.creation_date }}
+                        </div>
+                        <div class="main-list__task-entry-info main-list__task-entry-info--description {{ mark_completion(task.is_complete) }}">
+                            <a href="{{ url_for('tasklist_bp.edit_task_details', tasklist_id=tasklist_id, task_id=task.id) }}">{{ task.description }}</a>
+                        </div>
+            </li>
+            {% endfor %}
+        </ul>
         {% endif %}
     </div>
 </form>

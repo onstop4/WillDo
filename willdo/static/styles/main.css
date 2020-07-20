@@ -176,3 +176,22 @@ input.button, input.button:visited {
 .button--green:active {
     background-color: rgb(32, 110, 32);
 }
+
+.search-bar {
+    display: flex;
+    max-width: 250px;
+    flex-flow: row wrap;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.search-bar__text-input {
+    flex: 4;
+
+}
+
+.search-bar__button {
+    flex: 0;
+    height: auto;
+    padding: 4px;
+}
