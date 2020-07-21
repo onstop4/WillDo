@@ -38,6 +38,7 @@ def process_search():
 
 @bp.route('/search/<term>/')
 def search_for_tasklist(term):
+    term = remove_excess_whitespace(term)
     query = query_tasklists(search_for=term)
     tasklists = iter_tasklists_for_html(query)
     return render_template('select_tasklist.html', tasklists=tasklists, search_term=term)
