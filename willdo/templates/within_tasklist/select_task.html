@@ -22,7 +22,7 @@
 
     {% if tasks %}
     <div class="search-bar">
-        <input class="search-bar__text-input" type="text" id="search-input" name="search-input">
+        <input class="search-bar__text-input" type="text" id="search-input" name="search-input" value="{{ search_term }}">
         <input class="button search-bar__button" type="submit" name="search" value="Search">
     </div>
     {% endif %}

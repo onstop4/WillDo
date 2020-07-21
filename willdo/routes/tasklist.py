@@ -78,7 +78,7 @@ def search_tasks(tasklist_id, term):
     query = query_tasks(tasklist, search_for=term)
     tasks = iter_tasks_for_html(query)
 
-    return render_template('within_tasklist/select_task.html', tasklist_id=tasklist_id, tasklist_name=tasklist_name, tasks=tasks)
+    return render_template('within_tasklist/select_task.html', tasklist_id=tasklist_id, tasklist_name=tasklist_name, tasks=tasks, search_term=term)
 
 
 @bp.route('/<tasklist_id>/edit/newtask/', methods=['GET', 'POST'])
