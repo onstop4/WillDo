@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
+{% if tasklist_name %}
+{% set title = 'Editing tasklist' %}
+{% else %}
 {% set title = 'Creating tasklist' %}
+{% endif %}
 
 {% block resources %}
 {{ super() }}
@@ -15,7 +19,7 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     
     <label class="form-input__label" for="name">Name</label>
-    <input class="form-input__text-input form-input__text-input--long" type="text" id="name" name="name" pattern="^.*\w.*$">
+    <input class="form-input__text-input form-input__text-input--long" type="text" id="name" name="name" pattern="^.*\w.*$" value="{{ tasklist_name }}">
     
     <div class="form-input__label form-input__label--no-margin">
         <input class="button" type="submit" value="Submit">

@@ -49,7 +49,7 @@ def create_tasklist():
     if request.method == 'POST':
         submitted_form = request.form
         if not validate_tasklist(submitted_form):
-            return render_template('create_tasklist.html', invalid=True)
+            return render_template('create_edit_tasklist.html', invalid=True)
 
         name = remove_excess_whitespace(submitted_form['name'])
 
@@ -61,4 +61,4 @@ def create_tasklist():
 
         return redirect(url_for('mainpage_bp.select_tasklist'))
 
-    return render_template('create_tasklist.html')
+    return render_template('create_edit_tasklist.html')
