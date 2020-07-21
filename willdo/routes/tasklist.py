@@ -147,6 +147,8 @@ def perform_edit_action(tasklist_id):
             bulk_change_completion_status(tasks, False)
         elif submitted_form.get('delete-tasks'):
             bulk_delete(tasks)
+        elif submitted_form.get('edit-tasklist'):
+            return redirect(url_for('tasklist_bp.edit_tasklist_details', tasklist_id=tasklist_id))
         elif submitted_form.get('delete-tasklist'):
             delete_tasklist(tasklist_id)
             return redirect(url_for('mainpage_bp.select_tasklist'))
