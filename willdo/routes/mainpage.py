@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, g, url_for, request, redirect
 from collections import namedtuple
 from ..db import AvailableTasklist
-from .queries import query_tasklists
+from .queries import query_tasklists, get_tasklist_by_id
 from .operations import remove_excess_whitespace
 from .forms import validate_tasklist
 
@@ -62,3 +62,23 @@ def create_tasklist():
         return redirect(url_for('mainpage_bp.select_tasklist'))
 
     return render_template('create_edit_tasklist.html')
+
+
+@bp.route('/edit/<tasklist_id>/', methods=['GET', 'POST'])
+def edit_tasklist_details(tasklist_id):
+    tasklist = get_tasklist_by_id(tasklist_id)
+    tasklist_name = tasklist.name
+    invalid = False
+
+    if request.method == 'POST':
+        db_session = g.db_session
+        submitted_form = request.form
+        if validate_tasklist(submitted_form):
+            new_tasklist_name = remove_excess_whitespace(submitted_form['name'])
+            tasklist.name = new_tasklist_name
+            db_session.commit()
+            return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
+        else:
+            invalid = True
+
+    return render_template('create_edit_tasklist.html', tasklist_name=tasklist_name, invalid=invalid)

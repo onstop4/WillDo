@@ -4,7 +4,7 @@ from collections import namedtuple
 from ..db import IndividualTask
 from .queries import query_tasks, get_tasklist_by_id, get_task_by_id, get_multiple_tasks_by_id
 from .operations import bulk_change_completion_status, bulk_delete, remove_excess_whitespace
-from .forms import validate_task, validate_tasklist
+from .forms import validate_task
 
 
 bp = Blueprint('tasklist_bp', __name__)
@@ -148,7 +148,7 @@ def perform_edit_action(tasklist_id):
         elif submitted_form.get('delete-tasks'):
             bulk_delete(tasks)
         elif submitted_form.get('edit-tasklist'):
-            return redirect(url_for('tasklist_bp.edit_tasklist_details', tasklist_id=tasklist_id))
+            return redirect(url_for('mainpage_bp.edit_tasklist_details', tasklist_id=tasklist_id))
         elif submitted_form.get('delete-tasklist'):
             delete_tasklist(tasklist_id)
             return redirect(url_for('mainpage_bp.select_tasklist'))
@@ -164,23 +164,3 @@ def toggle_task_completion(tasklist_id, task_id):
     task.is_complete = not task.is_complete
 
     return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
-
-
-@bp.route('/<tasklist_id>/edit/edittasklist/', methods=['GET', 'POST'])
-def edit_tasklist_details(tasklist_id):
-    tasklist = get_tasklist_by_id(tasklist_id)
-    tasklist_name = tasklist.name
-    invalid = False
-
-    if request.method == 'POST':
-        db_session = g.db_session
-        submitted_form = request.form
-        if validate_tasklist(submitted_form):
-            new_tasklist_name = remove_excess_whitespace(submitted_form['name'])
-            tasklist.name = new_tasklist_name
-            db_session.commit()
-            return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
-        else:
-            invalid = True
-
-    return render_template('create_edit_tasklist.html', tasklist_name=tasklist_name, invalid=invalid)
