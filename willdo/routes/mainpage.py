@@ -18,6 +18,11 @@ def iter_tasklists_for_html(query):
         yield RenderedTasklist(_id, name)
 
 
+def modify_tasklist_from_form(submitted_form, tasklist: AvailableTasklist):
+    tasklist.name = remove_excess_whitespace(submitted_form.get('name'))
+    return tasklist
+
+
 @bp.route('/')
 def select_tasklist():
     query = query_tasklists()
@@ -46,22 +51,23 @@ def search_for_tasklist(term):
 
 @bp.route('/edit/newlist/', methods=['GET', 'POST'])
 def create_tasklist():
+    invalid = False
     if request.method == 'POST':
         submitted_form = request.form
-        if not validate_tasklist(submitted_form):
-            return render_template('create_edit_tasklist.html', invalid=True)
 
-        name = remove_excess_whitespace(submitted_form['name'])
+        if validate_tasklist(submitted_form):
+            tasklist = AvailableTasklist(name='')
+            modify_tasklist_from_form(submitted_form, tasklist)
 
-        tasklist = AvailableTasklist(name=name)
+            db_session = g.db_session
+            db_session.add(tasklist)
+            db_session.commit()
 
-        db_session = g.db_session
-        db_session.add(tasklist)
-        db_session.commit()
+            return redirect(url_for('mainpage_bp.select_tasklist'))
+        else:
+            invalid = True
 
-        return redirect(url_for('mainpage_bp.select_tasklist'))
-
-    return render_template('create_edit_tasklist.html')
+    return render_template('create_edit_tasklist.html', invalid=invalid)
 
 
 @bp.route('/edit/<tasklist_id>/', methods=['GET', 'POST'])
@@ -74,8 +80,8 @@ def edit_tasklist_details(tasklist_id):
         db_session = g.db_session
         submitted_form = request.form
         if validate_tasklist(submitted_form):
-            new_tasklist_name = remove_excess_whitespace(submitted_form['name'])
-            tasklist.name = new_tasklist_name
+            modify_tasklist_from_form(submitted_form, tasklist)
+
             db_session.commit()
             return redirect(url_for('tasklist_bp.list_tasks', tasklist_id=tasklist_id))
         else:
