@@ -15,6 +15,8 @@ class AvailableTasklist(Base):
     tasks = relationship(
         'IndividualTask', back_populates='tasklist', cascade='all, delete, delete-orphan')
 
+    sort_by = Column(Integer, default=0)
+
     def __repr__(self):
         return "<AvailableTasklist(name='{name}')>".format(name=self.name)
 

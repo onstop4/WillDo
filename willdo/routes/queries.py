@@ -1,6 +1,15 @@
+from enum import IntEnum
 from flask import g
 from sqlalchemy import func
 from ..db import AvailableTasklist, IndividualTask
+
+
+class Sort_Config(IntEnum):
+    completion_date = 0
+    id = 1
+    priority = 2
+    creation_date = 3
+    description = 4
 
 
 def query_tasklists(search_for=None):
