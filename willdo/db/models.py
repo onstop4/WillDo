@@ -16,6 +16,7 @@ class AvailableTasklist(Base):
         'IndividualTask', back_populates='tasklist', cascade='all, delete, delete-orphan')
 
     sort_by = Column(Integer, default=0)
+    descending = Column(Boolean, default=False)
 
     def __repr__(self):
         return "<AvailableTasklist(name='{name}')>".format(name=self.name)
